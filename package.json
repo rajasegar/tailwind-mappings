@@ -1,0 +1,21 @@
+{
+  "name": "tailwind-mappings",
+  "version": "0.0.0",
+  "description": "CSS Property values to Tailwind utilities mapping data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "git push && git push --tags && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rajasegar/tailwind-mappings.git"
+  },
+  "keywords": ["tailwind", "tailwindcss"],
+  "author": "Rajasegar Chandran <rajasegar.c@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rajasegar/tailwind-mappings/issues"
+  },
+  "homepage": "https://github.com/rajasegar/tailwind-mappings#readme"
+}
