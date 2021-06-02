@@ -6,11 +6,19 @@ function removeUnits(value) {
   return value.replace('rem', '').replace('em', '').replace('px', '');
 }
 
+function convertPxtoRem(value) {
+  const a = value.replace('px', '');
+  const b = a / 16;
+  return `${b}rem`;
+}
+
 // Get the nearest matching Tailwind value
 function getProximateKey(valueHash, value) {
   const values = Object.keys(valueHash).map((v) => removeUnits(v));
 
-  const _value = removeUnits(value);
+  const _value = value.includes('px')
+    ? removeUnits(convertPxtoRem(value))
+    : removeUnits(value);
 
   let distance = Math.abs(values[0] - _value);
   let idx = 0;

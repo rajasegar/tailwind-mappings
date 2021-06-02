@@ -4,7 +4,8 @@
   "description": "CSS Property values to Tailwind utilities mapping data",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
+    "coverage": "nyc --reporter=lcov --reporter=text-summary npm run test",
     "lint": "eslint .",
     "deploy": "git push && git push --tags && npm publish"
   },
@@ -27,6 +28,8 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.4.0",
+    "mocha": "^8.4.0",
+    "nyc": "^15.1.0",
     "prettier": "^2.3.0"
   }
 }
