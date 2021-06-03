@@ -6,6 +6,8 @@ const {
   getBorderRadiusUtils,
 } = require('../src/spacing-utils');
 
+const getBorderUtils = require('../src/border-utils');
+
 describe('Spacing Utils - Padding', () => {
   it('should return exact tailwind class', () => {
     const decl = { prop: 'padding', value: '0' };
@@ -115,5 +117,37 @@ describe('Border Radius utils', () => {
     const decl = { prop: 'border-radius', value: '16px' };
     const output = getBorderRadiusUtils(decl);
     assert.equal(output, 'rounded-2xl');
+  });
+});
+
+describe('Border utils', () => {
+  it('should return tailwind class 1px solid white border', () => {
+    const decl = { prop: 'border', value: '1px solid #fff' };
+    const output = getBorderUtils(decl);
+    assert.equal(output, 'border border-solid border-white');
+  });
+
+  it('should return tailwind class 1px solid black border', () => {
+    const decl = { prop: 'border', value: '1px solid #000' };
+    const output = getBorderUtils(decl);
+    assert.equal(output, 'border border-solid border-black');
+  });
+
+  it('should return tailwind class 1px dotted black border', () => {
+    const decl = { prop: 'border', value: '1px dotted #000' };
+    const output = getBorderUtils(decl);
+    assert.equal(output, 'border border-dotted border-black');
+  });
+
+  it('should return black border for unknown border color', () => {
+    const decl = { prop: 'border', value: '1px solid #123456' };
+    const output = getBorderUtils(decl);
+    assert.equal(output, 'border border-solid border-black');
+  });
+
+  it('should return default border for unknown border width', () => {
+    const decl = { prop: 'border', value: '11px solid #000' };
+    const output = getBorderUtils(decl);
+    assert.equal(output, 'border border-solid border-black');
   });
 });

@@ -822,6 +822,14 @@ const TAILWIND_CLASSES = {
   'border-color': {
     transparent: 'border-transparent',
     currentColor: 'border-current',
+    '#fff': 'border-white',
+    '#ffffff': 'border-white',
+    '#FFFFFF': 'border-white',
+    '#FFF': 'border-white',
+    white: 'border-white',
+    '#000': 'border-black',
+    '#000000': 'border-black',
+    black: 'border-black',
   },
   'mix-blend-mode': {
     normal: 'mix-blend-normal',

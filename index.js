@@ -6,8 +6,11 @@ const {
   getBorderRadiusUtils,
 } = require('./src/spacing-utils');
 
+const getBorderUtils = require('./src/border-utils');
+
 module.exports = {
   TAILWIND_CLASSES,
   getSpacingUtils,
   getBorderRadiusUtils,
+  getBorderUtils,
 };
