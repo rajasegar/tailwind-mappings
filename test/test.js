@@ -1,7 +1,10 @@
 /* globals describe it */
 const assert = require('assert');
 
-const { getSpacingUtils } = require('../src/spacing-utils');
+const {
+  getSpacingUtils,
+  getBorderRadiusUtils,
+} = require('../src/spacing-utils');
 
 describe('Spacing Utils - Padding', () => {
   it('should return exact tailwind class', () => {
@@ -64,14 +67,53 @@ describe('Spacing Utils - Padding', () => {
     assert.equal(output, 'px-8 py-8');
   });
 
+  it('should return nearest tailwind class shorthand version with top-bottom left-right pixel values', () => {
+    const decl = { prop: 'padding', value: '24px 12px' };
+    const output = getSpacingUtils(decl, 'padding');
+    assert.equal(output, 'px-3 py-6');
+  });
+
   it('should return exact tailwind class shorthand version with top left-right bottom values', () => {
     const decl = { prop: 'padding', value: '2rem 3rem 2rem' };
     const output = getSpacingUtils(decl, 'padding');
     assert.equal(output, 'pt-8 px-12 pb-8');
   });
+
+  it('should return nearest tailwind class shorthand version with top left-right bottom pixel values', () => {
+    const decl = { prop: 'padding', value: '12px 24px 36px' };
+    const output = getSpacingUtils(decl, 'padding');
+    assert.equal(output, 'pt-3 px-6 pb-9');
+  });
+
   it('should return exact tailwind class shorthand version with top right bottom left values', () => {
     const decl = { prop: 'padding', value: '1rem 2rem 3rem 4rem' };
     const output = getSpacingUtils(decl, 'padding');
     assert.equal(output, 'pt-4 pr-8 pb-12 pl-16');
+  });
+
+  it('should return nearest tailwind class shorthand version with top right bottom left pixel values', () => {
+    const decl = { prop: 'padding', value: '6px 12px 24px 36px' };
+    const output = getSpacingUtils(decl, 'padding');
+    assert.equal(output, 'pt-1.5 pr-3 pb-6 pl-9');
+  });
+});
+
+describe('Border Radius utils', () => {
+  it('should return tailwind class for 0px', () => {
+    const decl = { prop: 'border-radius', value: '0px' };
+    const output = getBorderRadiusUtils(decl);
+    assert.equal(output, 'rounded-none');
+  });
+
+  it('should return tailwind class for em values', () => {
+    const decl = { prop: 'border-radius', value: '.25em' };
+    const output = getBorderRadiusUtils(decl);
+    assert.equal(output, 'rounded');
+  });
+
+  it('should return tailwind class for px values', () => {
+    const decl = { prop: 'border-radius', value: '16px' };
+    const output = getBorderRadiusUtils(decl);
+    assert.equal(output, 'rounded-2xl');
   });
 });

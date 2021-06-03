@@ -9,7 +9,7 @@ function removeUnits(value) {
 function convertPxtoRem(value) {
   const a = value.replace('px', '');
   const b = a / 16;
-  return `${b}rem`;
+  return b > 0 ? `${b}rem` : '0';
 }
 
 // Get the nearest matching Tailwind value
@@ -29,7 +29,7 @@ function getProximateKey(valueHash, value) {
       distance = cdistance;
     }
   }
-  return `${values[idx]}rem`;
+  return values[idx] > 0 ? `${values[idx]}rem` : '0';
 }
 
 const spacingProps = {
@@ -130,7 +130,7 @@ function getSpacingUtils(decl, propName) {
 function getBorderRadiusUtils(decl) {
   const hash = TAILWIND_CLASSES['border-radius'];
   const proximateKey = getProximateKey(hash, decl.value);
-  return hash[proximateKey];
+  return hash[decl.value] || hash[proximateKey];
 }
 
 module.exports = {
