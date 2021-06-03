@@ -1,5 +1,10 @@
 # tailwind-mappings
 
+
+![Build and Deploy](https://github.com/rajasegar/tailwind-mappings/workflows/Build%20and%20Deploy/badge.svg)
+[![npm version](http://img.shields.io/npm/v/tailwind-mappings.svg?style=flat)](https://npmjs.org/package/tailwind-mappings "View this project on npm")
+
+
 CSS Property values to Tailwind utilities mapping data
 
 ## Install
