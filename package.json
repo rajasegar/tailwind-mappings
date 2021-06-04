@@ -31,5 +31,9 @@
     "mocha": "^8.4.0",
     "nyc": "^15.1.0",
     "prettier": "^2.3.0"
+  },
+  "dependencies": {
+    "chroma-js": "^2.1.2",
+    "tailwindcss": "^2.1.4"
   }
 }

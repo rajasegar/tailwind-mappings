@@ -47,11 +47,13 @@ const spacingProps = {
   },
 };
 
-function getSpacingUtils(decl, propName) {
+function getSpacingUtils(decl) {
+  const propName = decl.prop;
   const values = decl.value.split(' ');
   let output = '';
 
   // padding: 0;
+  // padding-left / padding-right / padding-top / padding-bottom
   if (values.length === 1) {
     const hash = TAILWIND_CLASSES[decl.prop];
     const proximateKey = getProximateKey(hash, values[0]);

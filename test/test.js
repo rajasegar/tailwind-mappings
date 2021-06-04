@@ -7,6 +7,7 @@ const {
 } = require('../src/spacing-utils');
 
 const getBorderUtils = require('../src/border-utils');
+const getColorUtils = require('../src/color-utils');
 
 describe('Spacing Utils - Padding', () => {
   it('should return exact tailwind class', () => {
@@ -149,5 +150,31 @@ describe('Border utils', () => {
     const decl = { prop: 'border', value: '11px solid #000' };
     const output = getBorderUtils(decl);
     assert.equal(output, 'border border-solid border-black');
+  });
+});
+
+describe('Color utils', () => {
+  it('should return nearest tailwind color class', () => {
+    const decl = { prop: 'color', value: 'red' };
+    const output = getColorUtils(decl, 'text');
+    assert.equal(output, 'text-red-600');
+  });
+
+  it('should return nearest tailwind color class bs blue', () => {
+    const decl = { prop: 'color', value: '#0d6efd' };
+    const output = getColorUtils(decl, 'bg');
+    assert.equal(output, 'bg-blue-600');
+  });
+
+  it('should return nearest tailwind color for rgb values', () => {
+    const decl = { prop: 'color', value: 'rgb(255,0,0)' };
+    const output = getColorUtils(decl, 'bg');
+    assert.equal(output, 'bg-red-600');
+  });
+
+  it('should return nearest tailwind color for light color', () => {
+    const decl = { prop: 'color', value: '#e7f1ff' };
+    const output = getColorUtils(decl, 'bg');
+    assert.equal(output, 'bg-indigo-50');
   });
 });
