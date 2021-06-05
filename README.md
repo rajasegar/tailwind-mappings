@@ -3,6 +3,7 @@
 
 ![Build and Deploy](https://github.com/rajasegar/tailwind-mappings/workflows/Build%20and%20Deploy/badge.svg)
 [![npm version](http://img.shields.io/npm/v/tailwind-mappings.svg?style=flat)](https://npmjs.org/package/tailwind-mappings "View this project on npm")
+[![Coverage Status](https://coveralls.io/repos/github/rajasegar/tailwind-mappings/badge.svg?branch=main)](https://coveralls.io/github/rajasegar/tailwind-mappings?branch=main)
 
 
 CSS Property values to Tailwind utilities mapping data
