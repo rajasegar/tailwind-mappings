@@ -57,7 +57,7 @@ function getSpacingUtils(decl) {
   if (values.length === 1) {
     const hash = TAILWIND_CLASSES[decl.prop];
     const proximateKey = getProximateKey(hash, values[0]);
-    output = hash[values[0]] || hash[proximateKey] || '';
+    output = hash[values[0]] || hash[proximateKey];
   }
   // padding: topBottom leftRight;
   if (values.length === 2) {
@@ -72,8 +72,8 @@ function getSpacingUtils(decl) {
     const leftRightProximateKey = getProximateKey(plHash, leftRight);
     const topBottomProximateKey = getProximateKey(ptHash, topBottom);
 
-    const px = plHash[leftRight] || plHash[leftRightProximateKey] || '';
-    const py = ptHash[topBottom] || ptHash[topBottomProximateKey] || '';
+    const px = plHash[leftRight] || plHash[leftRightProximateKey];
+    const py = ptHash[topBottom] || ptHash[topBottomProximateKey];
     output = px.replace('l', 'x') + ' ' + py.replace('t', 'y');
   }
 
@@ -93,9 +93,9 @@ function getSpacingUtils(decl) {
     const leftProximatekey = getProximateKey(plHash, leftRight);
     const bottomProximatekey = getProximateKey(ptHash, bottom);
 
-    const pt = ptHash[top] || ptHash[topProximatekey] || '';
-    const px = plHash[leftRight] || plHash[leftProximatekey] || '';
-    const pb = pbHash[bottom] || pbHash[bottomProximatekey] || '';
+    const pt = ptHash[top] || ptHash[topProximatekey];
+    const px = plHash[leftRight] || plHash[leftProximatekey];
+    const pb = pbHash[bottom] || pbHash[bottomProximatekey];
     output = pt + ' ' + px.replace('l', 'x') + ' ' + pb;
   }
 
@@ -118,10 +118,10 @@ function getSpacingUtils(decl) {
     const rightProximatekey = getProximateKey(prHash, right);
     const bottomProximatekey = getProximateKey(ptHash, bottom);
 
-    const pt = ptHash[top] || ptHash[topProximatekey] || '';
-    const pl = plHash[left] || plHash[leftProximatekey] || '';
-    const pr = prHash[right] || prHash[rightProximatekey] || '';
-    const pb = pbHash[bottom] || pbHash[bottomProximatekey] || '';
+    const pt = ptHash[top] || ptHash[topProximatekey];
+    const pl = plHash[left] || plHash[leftProximatekey];
+    const pr = prHash[right] || prHash[rightProximatekey];
+    const pb = pbHash[bottom] || pbHash[bottomProximatekey];
 
     output = pt + ' ' + pr + ' ' + pb + ' ' + pl;
   }

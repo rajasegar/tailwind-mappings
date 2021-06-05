@@ -151,6 +151,12 @@ describe('Border utils', () => {
     const output = getBorderUtils(decl);
     assert.equal(output, 'border border-solid border-black');
   });
+
+  it('should return empty string for unknown border style', () => {
+    const decl = { prop: 'border', value: '11px liquid #000' };
+    const output = getBorderUtils(decl);
+    assert.equal(output, 'border  border-black');
+  });
 });
 
 describe('Color utils', () => {
@@ -176,5 +182,29 @@ describe('Color utils', () => {
     const decl = { prop: 'color', value: '#e7f1ff' };
     const output = getColorUtils(decl, 'bg');
     assert.equal(output, 'bg-indigo-50');
+  });
+
+  it('should return text-current for color: currentColor', () => {
+    const decl = { prop: 'color', value: 'currentColor' };
+    const output = getColorUtils(decl, 'text');
+    assert.equal(output, 'text-current');
+  });
+
+  it('should return bg-current for background-color: currentColor', () => {
+    const decl = { prop: 'background-color', value: 'currentColor' };
+    const output = getColorUtils(decl, 'bg');
+    assert.equal(output, 'bg-current');
+  });
+
+  it('should return text-transparent for color: transparent', () => {
+    const decl = { prop: 'color', value: 'transparent' };
+    const output = getColorUtils(decl, 'text');
+    assert.equal(output, 'text-transparent');
+  });
+
+  it('should return bg-transparent for background-color: transparent', () => {
+    const decl = { prop: 'background-color', value: 'transparent' };
+    const output = getColorUtils(decl, 'bg');
+    assert.equal(output, 'bg-transparent');
   });
 });

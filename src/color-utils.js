@@ -33,6 +33,11 @@ const defaultColors = [
 ];
 
 function getColorUtils(decl, prop) {
+  if (decl.value === 'currentColor' && prop === 'text') return 'text-current';
+  if (decl.value === 'currentColor' && prop === 'bg') return 'bg-current';
+  if (decl.value === 'transparent' && prop === 'text')
+    return 'text-transparent';
+  if (decl.value === 'transparent' && prop === 'bg') return 'bg-transparent';
   const twColors = Object.keys(colors)
     .filter((c) => defaultColors.includes(c))
     .map((c) => {
