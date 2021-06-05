@@ -35,5 +35,8 @@
   "dependencies": {
     "chroma-js": "^2.1.2",
     "tailwindcss": "^2.1.4"
+  },
+  "engines": {
+    "node": ">=12.0.0"
   }
 }
