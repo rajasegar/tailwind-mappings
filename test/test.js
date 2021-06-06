@@ -179,6 +179,12 @@ describe('Border utils', () => {
     const output = getBorderUtils(decl);
     assert.equal(output, '');
   });
+
+  it('should return border-0  for border 0', () => {
+    const decl = { prop: 'border', value: '0' };
+    const output = getBorderUtils(decl);
+    assert.equal(output, 'border-0');
+  });
 });
 
 describe('Color utils', () => {
