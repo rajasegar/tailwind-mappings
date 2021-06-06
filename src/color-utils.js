@@ -60,7 +60,13 @@ function getColorUtils(decl) {
 
   const sorted = twColors
     .map((c) => {
-      let _val = decl.prop === 'border' ? decl.value.split(' ')[2] : decl.value;
+      let _val = decl.value;
+      if (decl.prop === 'border') {
+        const borderValues = decl.value.split(' ');
+        if (borderValues.length > 2) {
+          _val = borderValues[2];
+        }
+      }
       _val = _val.replace(' !important', '');
       const diff = deltaRgb(chroma(_val).rgb(), chroma(c.hex).rgb());
       return { ...c, diff };

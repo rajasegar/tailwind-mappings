@@ -22,6 +22,8 @@ function getProximateKey(valueHash, value) {
 }
 
 function getBorderUtils(decl) {
+  if (decl.value === 'none') return '';
+  if (decl.value === 'transparent') return '';
   const [width, style, color] = decl.value.split(' ');
 
   const borderWidth = TAILWIND_CLASSES['border-width'];

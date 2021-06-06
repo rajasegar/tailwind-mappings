@@ -167,6 +167,18 @@ describe('Border utils', () => {
       'border border-solid border-gray-900 border-opacity-10'
     );
   });
+
+  it('should return empty value for border none', () => {
+    const decl = { prop: 'border', value: 'none' };
+    const output = getBorderUtils(decl);
+    assert.equal(output, '');
+  });
+
+  it('should return empty value for border transparent', () => {
+    const decl = { prop: 'border', value: 'transparent' };
+    const output = getBorderUtils(decl);
+    assert.equal(output, '');
+  });
 });
 
 describe('Color utils', () => {
