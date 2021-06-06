@@ -8,6 +8,7 @@ const {
 
 const getBorderUtils = require('./src/border-utils');
 const getColorUtils = require('./src/color-utils');
+const getTailwindUtils = require('./src/tailwind-utils');
 
 module.exports = {
   TAILWIND_CLASSES,
@@ -15,4 +16,5 @@ module.exports = {
   getBorderRadiusUtils,
   getBorderUtils,
   getColorUtils,
+  getTailwindUtils,
 };

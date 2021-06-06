@@ -8,6 +8,7 @@ const {
 
 const getBorderUtils = require('../src/border-utils');
 const getColorUtils = require('../src/color-utils');
+const getTailwindUtils = require('../src/tailwind-utils');
 
 describe('Spacing Utils - Padding', () => {
   it('should return exact tailwind class', () => {
@@ -140,10 +141,10 @@ describe('Border utils', () => {
     assert.equal(output, 'border border-dotted border-black');
   });
 
-  it('should return black border for unknown border color', () => {
+  it('should return nearest border class for random border color', () => {
     const decl = { prop: 'border', value: '1px solid #123456' };
     const output = getBorderUtils(decl);
-    assert.equal(output, 'border border-solid border-black');
+    assert.equal(output, 'border border-solid border-gray-800');
   });
 
   it('should return default border for unknown border width', () => {
@@ -162,49 +163,111 @@ describe('Border utils', () => {
 describe('Color utils', () => {
   it('should return nearest tailwind color class', () => {
     const decl = { prop: 'color', value: 'red' };
-    const output = getColorUtils(decl, 'text');
+    const output = getColorUtils(decl);
     assert.equal(output, 'text-red-600');
   });
 
   it('should return nearest tailwind color class bs blue', () => {
-    const decl = { prop: 'color', value: '#0d6efd' };
-    const output = getColorUtils(decl, 'bg');
+    const decl = { prop: 'background-color', value: '#0d6efd' };
+    const output = getColorUtils(decl);
     assert.equal(output, 'bg-blue-600');
   });
 
   it('should return nearest tailwind color for rgb values', () => {
-    const decl = { prop: 'color', value: 'rgb(255,0,0)' };
-    const output = getColorUtils(decl, 'bg');
+    const decl = { prop: 'background-color', value: 'rgb(255,0,0)' };
+    const output = getColorUtils(decl);
     assert.equal(output, 'bg-red-600');
   });
 
   it('should return nearest tailwind color for light color', () => {
-    const decl = { prop: 'color', value: '#e7f1ff' };
-    const output = getColorUtils(decl, 'bg');
+    const decl = { prop: 'background-color', value: '#e7f1ff' };
+    const output = getColorUtils(decl);
     assert.equal(output, 'bg-indigo-50');
   });
 
   it('should return text-current for color: currentColor', () => {
     const decl = { prop: 'color', value: 'currentColor' };
-    const output = getColorUtils(decl, 'text');
+    const output = getColorUtils(decl);
     assert.equal(output, 'text-current');
   });
 
   it('should return bg-current for background-color: currentColor', () => {
     const decl = { prop: 'background-color', value: 'currentColor' };
-    const output = getColorUtils(decl, 'bg');
+    const output = getColorUtils(decl);
     assert.equal(output, 'bg-current');
   });
 
   it('should return text-transparent for color: transparent', () => {
     const decl = { prop: 'color', value: 'transparent' };
-    const output = getColorUtils(decl, 'text');
+    const output = getColorUtils(decl);
     assert.equal(output, 'text-transparent');
   });
 
   it('should return bg-transparent for background-color: transparent', () => {
     const decl = { prop: 'background-color', value: 'transparent' };
-    const output = getColorUtils(decl, 'bg');
+    const output = getColorUtils(decl);
     assert.equal(output, 'bg-transparent');
+  });
+});
+
+describe('Tailwind utils', () => {
+  it('should return exact tailwind class', () => {
+    const decl = { prop: 'padding', value: '0' };
+    const output = getTailwindUtils(decl);
+    assert.equal(output, 'p-0');
+  });
+
+  it('should return tailwind class for 0px', () => {
+    const decl = { prop: 'border-radius', value: '0px' };
+    const output = getTailwindUtils(decl);
+    assert.equal(output, 'rounded-none');
+  });
+
+  it('should return tailwind class 1px solid white border', () => {
+    const decl = { prop: 'border', value: '1px solid #fff' };
+    const output = getTailwindUtils(decl);
+    assert.equal(output, 'border border-solid border-white');
+  });
+
+  it('should return nearest tailwind color class', () => {
+    const decl = { prop: 'color', value: 'red' };
+    const output = getTailwindUtils(decl);
+    assert.equal(output, 'text-red-600');
+  });
+
+  it('should remove important value and return nearest tailwind color class', () => {
+    const decl = { prop: 'color', value: 'red !important' };
+    const output = getTailwindUtils(decl);
+    assert.equal(output, 'text-red-600');
+  });
+
+  it('should remove !important and return tailwind class', () => {
+    const decl = { prop: 'display', value: 'block !important' };
+    const output = getTailwindUtils(decl);
+    assert.equal(output, 'block');
+  });
+
+  it('should return empty value for unknown prop value', () => {
+    const decl = { prop: 'display', value: 'led' };
+    const output = getTailwindUtils(decl);
+    assert.equal(output, '');
+  });
+
+  it('should return empty value for unknown props', () => {
+    const decl = { prop: 'my-prop', value: 'my-value' };
+    const output = getTailwindUtils(decl);
+    assert.equal(output, '');
+  });
+
+  it('should return empty value for color: inherit', () => {
+    const decl = { prop: 'color', value: 'inherit' };
+    const output = getTailwindUtils(decl);
+    assert.equal(output, '');
+  });
+
+  it('should return empty value for color: var(--my-color)', () => {
+    const decl = { prop: 'color', value: 'var(--my-color)' };
+    const output = getTailwindUtils(decl);
+    assert.equal(output, '');
   });
 });

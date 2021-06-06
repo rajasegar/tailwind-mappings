@@ -32,12 +32,15 @@ const defaultColors = [
   'coolGray',
 ];
 
-function getColorUtils(decl, prop) {
-  if (decl.value === 'currentColor' && prop === 'text') return 'text-current';
-  if (decl.value === 'currentColor' && prop === 'bg') return 'bg-current';
-  if (decl.value === 'transparent' && prop === 'text')
+function getColorUtils(decl) {
+  if (decl.value === 'currentColor' && decl.prop === 'color')
+    return 'text-current';
+  if (decl.value === 'currentColor' && decl.prop === 'background-color')
+    return 'bg-current';
+  if (decl.value === 'transparent' && decl.prop === 'color')
     return 'text-transparent';
-  if (decl.value === 'transparent' && prop === 'bg') return 'bg-transparent';
+  if (decl.value === 'transparent' && decl.prop === 'background-color')
+    return 'bg-transparent';
   const twColors = Object.keys(colors)
     .filter((c) => defaultColors.includes(c))
     .map((c) => {
@@ -45,8 +48,9 @@ function getColorUtils(decl, prop) {
       const palette = Object.keys(shades).map((s) => {
         const _c = c.replace('coolG', 'g');
         return {
-          bg: `bg-${_c}-${s}`,
-          text: `text-${_c}-${s}`,
+          'background-color': `bg-${_c}-${s}`,
+          color: `text-${_c}-${s}`,
+          border: `border-${_c}-${s}`,
           hex: shades[s],
         };
       });
@@ -56,12 +60,14 @@ function getColorUtils(decl, prop) {
 
   const sorted = twColors
     .map((c) => {
-      const diff = deltaRgb(chroma(decl.value).rgb(), chroma(c.hex).rgb());
+      let _val = decl.prop === 'border' ? decl.value.split(' ')[2] : decl.value;
+      _val = _val.replace(' !important', '');
+      const diff = deltaRgb(chroma(_val).rgb(), chroma(c.hex).rgb());
       return { ...c, diff };
     })
     .sort((a, b) => a.diff - b.diff);
 
-  return sorted[0][prop];
+  return sorted[0][decl.prop];
 }
 
 module.exports = getColorUtils;

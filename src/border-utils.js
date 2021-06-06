@@ -2,6 +2,8 @@
 
 const TAILWIND_CLASSES = require('./constants');
 
+const getColorUtils = require('./color-utils');
+
 function getBorderUtils(decl) {
   const [width, style, color] = decl.value.split(' ');
 
@@ -11,7 +13,7 @@ function getBorderUtils(decl) {
 
   const _width = borderWidth[width] || 'border';
   const _style = borderStyle[style] || '';
-  const _color = borderColor[color] || 'border-black';
+  const _color = borderColor[color] || getColorUtils(decl, 'border');
   return _width + ' ' + _style + ' ' + _color;
 }
 
