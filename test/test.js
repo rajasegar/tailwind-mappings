@@ -6,7 +6,7 @@ const {
   getBorderRadiusUtils,
 } = require('../src/spacing-utils');
 
-const getBorderUtils = require('../src/border-utils');
+const { getBorderUtils } = require('../src/border-utils');
 const getColorUtils = require('../src/color-utils');
 const getTailwindUtils = require('../src/tailwind-utils');
 
@@ -305,5 +305,35 @@ describe('Tailwind utils', () => {
     const decl = { prop: 'color', value: 'var(--my-color)' };
     const output = getTailwindUtils(decl);
     assert.equal(output, '');
+  });
+
+  it('should return nearest value for border-color', () => {
+    const decl = { prop: 'border-color', value: '#12344d' };
+    const output = getTailwindUtils(decl);
+    assert.equal(output, 'border-gray-800');
+  });
+
+  it('should return nearest value for border-color rgb', () => {
+    const decl = { prop: 'border-color', value: 'rgb(255, 0, 0)' };
+    const output = getTailwindUtils(decl);
+    assert.equal(output, 'border-red-600');
+  });
+
+  it('should return nearest value for border-color rgba', () => {
+    const decl = { prop: 'border-color', value: 'rgba(0, 0, 0, 0.125)' };
+    const output = getTailwindUtils(decl);
+    assert.equal(output, 'border-gray-900 border-opacity-10');
+  });
+
+  it('should return tailwind class for border-color currentColor', () => {
+    const decl = { prop: 'border-color', value: 'currentColor' };
+    const output = getTailwindUtils(decl);
+    assert.equal(output, 'border-current');
+  });
+
+  it('should return tailwind class for border-color transparent', () => {
+    const decl = { prop: 'border-color', value: 'transparent' };
+    const output = getTailwindUtils(decl);
+    assert.equal(output, 'border-transparent');
   });
 });

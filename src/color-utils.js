@@ -51,6 +51,7 @@ function getColorUtils(decl) {
           'background-color': `bg-${_c}-${s}`,
           color: `text-${_c}-${s}`,
           border: `border-${_c}-${s}`,
+          'border-color': `border-${_c}-${s}`,
           hex: shades[s],
         };
       });

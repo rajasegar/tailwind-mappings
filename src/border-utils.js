@@ -26,7 +26,6 @@ function getBorderUtils(decl) {
   if (decl.value === 'transparent') return '';
   if (decl.value === '0') return 'border-0';
   const borderValues = decl.value.split(' ');
-  debugger;
   if (borderValues.length > 2) {
     const [width, style, ...colorValue] = borderValues;
     const color = colorValue.join('');
@@ -50,4 +49,26 @@ function getBorderUtils(decl) {
   } else return '';
 }
 
-module.exports = getBorderUtils;
+function getBorderColorUtils(decl) {
+  if (decl.value === 'currentColor') return 'border-current';
+  if (decl.value === 'transparent') return 'border-transparent';
+
+  const borderColor = TAILWIND_CLASSES['border-color'];
+  const borderOpacity = TAILWIND_CLASSES['border-opacity'];
+
+  const color = decl.value;
+  const _color = borderColor[color] || getColorUtils(decl);
+  let result = _color;
+  if (color.includes('rgba')) {
+    const [, , , opacity] = chroma(color)._rgb;
+    const proximateKey = getProximateKey(borderOpacity, opacity);
+    const _opacity = borderOpacity[opacity] || borderOpacity[proximateKey];
+    result += ' ' + _opacity;
+  }
+  return result;
+}
+
+module.exports = {
+  getBorderUtils,
+  getBorderColorUtils,
+};

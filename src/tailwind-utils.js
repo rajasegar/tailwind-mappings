@@ -3,7 +3,7 @@
 const TAILWIND_CLASSES = require('./constants');
 const { getSpacingUtils, getBorderRadiusUtils } = require('./spacing-utils');
 
-const getBorderUtils = require('./border-utils');
+const { getBorderUtils, getBorderColorUtils } = require('./border-utils');
 const getColorUtils = require('./color-utils');
 
 const spacingProps = [
@@ -37,6 +37,8 @@ function getTailwindUtils(decl) {
     if (decl.value !== 'inherit' && !decl.value.includes('var')) {
       return getColorUtils(decl);
     } else return '';
+  } else if (decl.prop === 'border-color') {
+    return getBorderColorUtils(decl);
   } else {
     // remove !important from values
     let val = decl.value.replace(' !important', '');
