@@ -158,6 +158,15 @@ describe('Border utils', () => {
     const output = getBorderUtils(decl);
     assert.equal(output, 'border  border-black');
   });
+
+  it('should return nearest tailwind class for rgba', () => {
+    const decl = { prop: 'border', value: '1px solid rgba(0,0,0,.125)' };
+    const output = getBorderUtils(decl);
+    assert.equal(
+      output,
+      'border border-solid border-gray-900 border-opacity-10'
+    );
+  });
 });
 
 describe('Color utils', () => {
