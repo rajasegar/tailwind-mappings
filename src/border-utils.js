@@ -50,6 +50,7 @@ function getBorderUtils(decl) {
 }
 
 function getBorderColorUtils(decl) {
+  if (decl.value === 'inherit' || decl.value === 'initial') return '';
   if (decl.value === 'currentColor') return 'border-current';
   if (decl.value === 'transparent') return 'border-transparent';
 

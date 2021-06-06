@@ -336,4 +336,16 @@ describe('Tailwind utils', () => {
     const output = getTailwindUtils(decl);
     assert.equal(output, 'border-transparent');
   });
+
+  it('should return empty value for border-color inherit', () => {
+    const decl = { prop: 'border-color', value: 'inherit' };
+    const output = getTailwindUtils(decl);
+    assert.equal(output, '');
+  });
+
+  it('should return empty value for border-color initial', () => {
+    const decl = { prop: 'border-color', value: 'initial' };
+    const output = getTailwindUtils(decl);
+    assert.equal(output, '');
+  });
 });
