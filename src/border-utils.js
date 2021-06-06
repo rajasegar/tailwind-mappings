@@ -26,8 +26,10 @@ function getBorderUtils(decl) {
   if (decl.value === 'transparent') return '';
   if (decl.value === '0') return 'border-0';
   const borderValues = decl.value.split(' ');
-  if (borderValues.length === 3) {
-    const [width, style, color] = borderValues;
+  debugger;
+  if (borderValues.length > 2) {
+    const [width, style, ...colorValue] = borderValues;
+    const color = colorValue.join('');
 
     const borderWidth = TAILWIND_CLASSES['border-width'];
     const borderStyle = TAILWIND_CLASSES['border-style'];

@@ -64,7 +64,8 @@ function getColorUtils(decl) {
       if (decl.prop === 'border') {
         const borderValues = decl.value.split(' ');
         if (borderValues.length > 2) {
-          _val = borderValues[2];
+          const [, , ...colorValues] = borderValues;
+          _val = colorValues.join('');
         }
       }
       _val = _val.replace(' !important', '');

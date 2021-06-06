@@ -160,7 +160,7 @@ describe('Border utils', () => {
   });
 
   it('should return nearest tailwind class for rgba', () => {
-    const decl = { prop: 'border', value: '1px solid rgba(0,0,0,.125)' };
+    const decl = { prop: 'border', value: '1px solid rgba(0, 0, 0, 0.125)' };
     const output = getBorderUtils(decl);
     assert.equal(
       output,
@@ -201,7 +201,7 @@ describe('Color utils', () => {
   });
 
   it('should return nearest tailwind color for rgb values', () => {
-    const decl = { prop: 'background-color', value: 'rgb(255,0,0)' };
+    const decl = { prop: 'background-color', value: 'rgb(255, 0, 0)' };
     const output = getColorUtils(decl);
     assert.equal(output, 'bg-red-600');
   });
@@ -254,6 +254,15 @@ describe('Tailwind utils', () => {
     const decl = { prop: 'border', value: '1px solid #fff' };
     const output = getTailwindUtils(decl);
     assert.equal(output, 'border border-solid border-white');
+  });
+
+  it('should return tailwind class 1px solid rgba(0,0,0,0.125) border', () => {
+    const decl = { prop: 'border', value: '1px solid rgba(0, 0, 0, 0.125)' };
+    const output = getTailwindUtils(decl);
+    assert.equal(
+      output,
+      'border border-solid border-gray-900 border-opacity-10'
+    );
   });
 
   it('should return nearest tailwind color class', () => {
