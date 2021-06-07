@@ -1,51 +1,60 @@
 'use strict';
 
 const TAILWIND_CLASSES = require('./constants');
-const { getSpacingUtils, getBorderRadiusUtils } = require('./spacing-utils');
+const getSpacingUtils = require('./spacing-utils');
 
 const { getBorderUtils, getBorderColorUtils } = require('./border-utils');
+
+const getBorderRadiusUtils = require('./border-radius-utils');
 const getColorUtils = require('./color-utils');
-
-const spacingProps = [
-  'margin',
-  'margin-left',
-  'margin-right',
-  'margin-top',
-  'margin-bottom',
-  'padding',
-  'padding-bottom',
-  'padding-top',
-  'padding-left',
-  'padding-right',
-];
-
-const colorProps = ['color', 'background-color', 'border'];
 
 function getTailwindUtils(decl) {
   const prop = TAILWIND_CLASSES[decl.prop];
-  if (
-    spacingProps.includes(decl.prop) &&
-    !decl.value.includes('var') &&
-    !decl.value.includes('calc')
-  ) {
-    return getSpacingUtils(decl, decl.prop);
-  } else if (decl.prop === 'border') {
-    return getBorderUtils(decl);
-  } else if (decl.prop === 'border-radius') {
-    return getBorderRadiusUtils(decl);
-  } else if (colorProps.includes(decl.prop)) {
-    if (decl.value !== 'inherit' && !decl.value.includes('var')) {
-      return getColorUtils(decl);
-    } else return '';
-  } else if (decl.prop === 'border-color') {
-    return getBorderColorUtils(decl);
-  } else {
-    // remove !important from values
-    let val = decl.value.replace(' !important', '');
-    //console.log(val);
+  // remove !important from values
+  const val = decl.value.replace(' !important', '');
+  let output = '';
+  switch (decl.prop) {
+    case 'margin':
+    case 'margin-left':
+    case 'margin-right':
+    case 'margin-top':
+    case 'margin-bottom':
+    case 'padding':
+    case 'padding-left':
+    case 'padding-right':
+    case 'padding-top':
+    case 'padding-bottom':
+      output = getSpacingUtils(decl, decl.prop);
+      break;
 
-    return prop ? prop[val] || '' : '';
+    case 'border':
+      output = getBorderUtils(decl);
+      break;
+
+    case 'color':
+    case 'background-color':
+      if (decl.value !== 'inherit' && !decl.value.includes('var')) {
+        output = getColorUtils(decl);
+      }
+      break;
+
+    case 'border-radius':
+      output = getBorderRadiusUtils(decl);
+      break;
+
+    case 'border-color':
+      output = getBorderColorUtils(decl);
+      break;
+
+    default:
+      if (prop) {
+        output = prop[val] || '';
+      } else {
+        console.error('Unknown prop: ', decl.prop);
+      }
   }
+
+  return output;
 }
 
 module.exports = getTailwindUtils;

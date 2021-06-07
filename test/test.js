@@ -1,12 +1,10 @@
 /* globals describe it */
 const assert = require('assert');
 
-const {
-  getSpacingUtils,
-  getBorderRadiusUtils,
-} = require('../src/spacing-utils');
+const getSpacingUtils = require('../src/spacing-utils');
 
 const { getBorderUtils } = require('../src/border-utils');
+const getBorderRadiusUtils = require('../src/border-radius-utils');
 const getColorUtils = require('../src/color-utils');
 const getTailwindUtils = require('../src/tailwind-utils');
 
@@ -99,6 +97,18 @@ describe('Spacing Utils - Padding', () => {
     const decl = { prop: 'padding', value: '6px 12px 24px 36px' };
     const output = getSpacingUtils(decl, 'padding');
     assert.equal(output, 'pt-1.5 pr-3 pb-6 pl-9');
+  });
+
+  it('should return empty value for var values', () => {
+    const decl = { prop: 'padding', value: 'var(--my-padding)' };
+    const output = getSpacingUtils(decl, 'padding');
+    assert.equal(output, '');
+  });
+
+  it('should return empty value for calc values', () => {
+    const decl = { prop: 'padding', value: 'calc(100vw - 50px)' };
+    const output = getSpacingUtils(decl, 'padding');
+    assert.equal(output, '');
   });
 });
 
@@ -340,12 +350,12 @@ describe('Tailwind utils', () => {
   it('should return empty value for border-color inherit', () => {
     const decl = { prop: 'border-color', value: 'inherit' };
     const output = getTailwindUtils(decl);
-    assert.equal(output, '');
+    assert.equal(output, ' ');
   });
 
   it('should return empty value for border-color initial', () => {
     const decl = { prop: 'border-color', value: 'initial' };
     const output = getTailwindUtils(decl);
-    assert.equal(output, '');
+    assert.equal(output, ' ');
   });
 });

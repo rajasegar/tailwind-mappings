@@ -50,10 +50,6 @@ function getBorderUtils(decl) {
 }
 
 function getBorderColorUtils(decl) {
-  if (decl.value === 'inherit' || decl.value === 'initial') return '';
-  if (decl.value === 'currentColor') return 'border-current';
-  if (decl.value === 'transparent') return 'border-transparent';
-
   const borderColor = TAILWIND_CLASSES['border-color'];
   const borderOpacity = TAILWIND_CLASSES['border-opacity'];
 

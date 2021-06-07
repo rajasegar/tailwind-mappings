@@ -820,6 +820,8 @@ const TAILWIND_CLASSES = {
     '1px': 'border',
   },
   'border-color': {
+    inherit: ' ',
+    initial: ' ',
     transparent: 'border-transparent',
     currentColor: 'border-current',
     '#fff': 'border-white',

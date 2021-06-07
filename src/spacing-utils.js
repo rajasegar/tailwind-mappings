@@ -2,35 +2,7 @@
 
 const TAILWIND_CLASSES = require('./constants');
 
-function removeUnits(value) {
-  return value.replace('rem', '').replace('em', '').replace('px', '');
-}
-
-function convertPxtoRem(value) {
-  const a = value.replace('px', '');
-  const b = a / 16;
-  return b > 0 ? `${b}rem` : '0';
-}
-
-// Get the nearest matching Tailwind value
-function getProximateKey(valueHash, value) {
-  const values = Object.keys(valueHash).map((v) => removeUnits(v));
-
-  const _value = value.includes('px')
-    ? removeUnits(convertPxtoRem(value))
-    : removeUnits(value);
-
-  let distance = Math.abs(values[0] - _value);
-  let idx = 0;
-  for (let c = 1; c < values.length; c++) {
-    const cdistance = Math.abs(values[c] - _value);
-    if (cdistance < distance) {
-      idx = c;
-      distance = cdistance;
-    }
-  }
-  return values[idx] > 0 ? `${values[idx]}rem` : '0';
-}
+const getProximateKey = require('./get-proximate-key');
 
 const spacingProps = {
   margin: {
@@ -48,6 +20,7 @@ const spacingProps = {
 };
 
 function getSpacingUtils(decl) {
+  if (decl.value.includes('var') || decl.value.includes('calc')) return '';
   const propName = decl.prop;
   const values = decl.value.split(' ');
   let output = '';
@@ -129,13 +102,4 @@ function getSpacingUtils(decl) {
   return output;
 }
 
-function getBorderRadiusUtils(decl) {
-  const hash = TAILWIND_CLASSES['border-radius'];
-  const proximateKey = getProximateKey(hash, decl.value);
-  return hash[decl.value] || hash[proximateKey];
-}
-
-module.exports = {
-  getSpacingUtils,
-  getBorderRadiusUtils,
-};
+module.exports = getSpacingUtils;
