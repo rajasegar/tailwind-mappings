@@ -112,6 +112,110 @@ describe('Spacing Utils - Padding', () => {
   });
 });
 
+describe('Spacing Utils - Margin', () => {
+  it('should return exact tailwind class', () => {
+    const decl = { prop: 'margin', value: '0' };
+    const output = getSpacingUtils(decl);
+    assert.equal(output, 'm-0');
+  });
+
+  it('should return exact tailwind class for px', () => {
+    const decl = { prop: 'margin', value: '0px' };
+    const output = getSpacingUtils(decl);
+    assert.equal(output, 'm-0');
+  });
+
+  it('should return nearest tailwind class', () => {
+    const decl = { prop: 'margin', value: '0.275rem' };
+    const output = getSpacingUtils(decl);
+    assert.equal(output, 'm-1');
+  });
+
+  it('should return exact tailwind class for em', () => {
+    const decl = { prop: 'margin', value: '0.275em' };
+    const output = getSpacingUtils(decl);
+    assert.equal(output, 'm-1');
+  });
+
+  it('should return nearest tailwind class for pixel values', () => {
+    const decl = { prop: 'margin', value: '20px' };
+    const output = getSpacingUtils(decl);
+    assert.equal(output, 'm-5');
+  });
+
+  it('should return nearest tailwind class for pixel values for margin-left', () => {
+    const decl = { prop: 'margin-left', value: '20px' };
+    const output = getSpacingUtils(decl);
+    assert.equal(output, 'ml-5');
+  });
+
+  it('should return nearest tailwind class for pixel values for margin-right', () => {
+    const decl = { prop: 'margin-right', value: '33px' };
+    const output = getSpacingUtils(decl);
+    assert.equal(output, 'mr-8');
+  });
+
+  it('should return nearest tailwind class for pixel values for margin-top', () => {
+    const decl = { prop: 'margin-top', value: '33px' };
+    const output = getSpacingUtils(decl);
+    assert.equal(output, 'mt-8');
+  });
+
+  it('should return nearest tailwind class for pixel values for margin-bottom', () => {
+    const decl = { prop: 'margin-bottom', value: '33px' };
+    const output = getSpacingUtils(decl);
+    assert.equal(output, 'mb-8');
+  });
+
+  it('should return exact tailwind class shorthand version with top-bottom left-right values', () => {
+    const decl = { prop: 'margin', value: '2rem 2rem' };
+    const output = getSpacingUtils(decl);
+    assert.equal(output, 'mx-8 my-8');
+  });
+
+  it('should return nearest tailwind class shorthand version with top-bottom left-right pixel values', () => {
+    const decl = { prop: 'margin', value: '24px 12px' };
+    const output = getSpacingUtils(decl);
+    assert.equal(output, 'mx-3 my-6');
+  });
+
+  it('should return exact tailwind class shorthand version with top left-right bottom values', () => {
+    const decl = { prop: 'margin', value: '2rem 3rem 2rem' };
+    const output = getSpacingUtils(decl);
+    assert.equal(output, 'mt-8 mx-12 mb-8');
+  });
+
+  it('should return nearest tailwind class shorthand version with top left-right bottom pixel values', () => {
+    const decl = { prop: 'margin', value: '12px 24px 36px' };
+    const output = getSpacingUtils(decl);
+    assert.equal(output, 'mt-3 mx-6 mb-9');
+  });
+
+  it('should return exact tailwind class shorthand version with top right bottom left values', () => {
+    const decl = { prop: 'margin', value: '1rem 2rem 3rem 4rem' };
+    const output = getSpacingUtils(decl);
+    assert.equal(output, 'mt-4 mr-8 mb-12 ml-16');
+  });
+
+  it('should return nearest tailwind class shorthand version with top right bottom left pixel values', () => {
+    const decl = { prop: 'margin', value: '6px 12px 24px 36px' };
+    const output = getSpacingUtils(decl);
+    assert.equal(output, 'mt-1.5 mr-3 mb-6 ml-9');
+  });
+
+  it('should return empty value for var values', () => {
+    const decl = { prop: 'margin', value: 'var(--my-padding)' };
+    const output = getSpacingUtils(decl);
+    assert.equal(output, '');
+  });
+
+  it('should return empty value for calc values', () => {
+    const decl = { prop: 'margin', value: 'calc(100vw - 50px)' };
+    const output = getSpacingUtils(decl);
+    assert.equal(output, '');
+  });
+});
+
 describe('Border Radius utils', () => {
   it('should return tailwind class for 0px', () => {
     const decl = { prop: 'border-radius', value: '0px' };
@@ -252,6 +356,12 @@ describe('Tailwind utils', () => {
     const decl = { prop: 'padding', value: '0' };
     const output = getTailwindUtils(decl);
     assert.equal(output, 'p-0');
+  });
+
+  it('should return exact tailwind class', () => {
+    const decl = { prop: 'margin', value: '0' };
+    const output = getTailwindUtils(decl);
+    assert.equal(output, 'm-0');
   });
 
   it('should return tailwind class for 0px', () => {
