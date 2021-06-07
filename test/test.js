@@ -468,4 +468,10 @@ describe('Tailwind utils', () => {
     const output = getTailwindUtils(decl);
     assert.equal(output, ' ');
   });
+
+  it('should return nearest  value for background', () => {
+    const decl = { prop: 'background', value: '#016aba' };
+    const output = getTailwindUtils(decl);
+    assert.equal(output, 'bg-blue-700');
+  });
 });

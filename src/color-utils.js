@@ -49,6 +49,7 @@ function getColorUtils(decl) {
         const _c = c.replace('coolG', 'g');
         return {
           'background-color': `bg-${_c}-${s}`,
+          background: `bg-${_c}-${s}`,
           color: `text-${_c}-${s}`,
           border: `border-${_c}-${s}`,
           'border-color': `border-${_c}-${s}`,

@@ -33,6 +33,7 @@ function getTailwindUtils(decl) {
 
     case 'color':
     case 'background-color':
+    case 'background':
       if (decl.value !== 'inherit' && !decl.value.includes('var')) {
         output = getColorUtils(decl);
       }
