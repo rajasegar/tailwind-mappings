@@ -50,6 +50,13 @@ function getTailwindUtils(decl) {
       output = getBorderColorUtils(decl);
       break;
 
+    case 'opacity':
+      if (decl.value.startsWith('.')) {
+        decl.value = '0' + decl.value;
+      }
+      output = prop[decl.value] || '';
+      break;
+
     default:
       if (prop) {
         output = prop[val] || '';

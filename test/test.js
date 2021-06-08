@@ -513,4 +513,16 @@ describe('Tailwind utils', () => {
     const output = getTailwindUtils(decl);
     assert.equal(output, ' ');
   });
+
+  it('should return tailwind value for opacity ', () => {
+    const decl = { prop: 'opacity', value: '.9' };
+    const output = getTailwindUtils(decl);
+    assert.equal(output, 'opacity-90');
+  });
+
+  it('should return tailwind value for opacity ', () => {
+    const decl = { prop: 'opacity', value: '0.9' };
+    const output = getTailwindUtils(decl);
+    assert.equal(output, 'opacity-90');
+  });
 });
