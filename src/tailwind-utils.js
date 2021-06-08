@@ -2,6 +2,7 @@
 
 const TAILWIND_CLASSES = require('./constants');
 const getSpacingUtils = require('./spacing-utils');
+const debug = require('debug')('tailwind-mappings');
 
 const { getBorderUtils, getBorderColorUtils } = require('./border-utils');
 
@@ -10,6 +11,8 @@ const getColorUtils = require('./color-utils');
 
 function getTailwindUtils(decl) {
   const prop = TAILWIND_CLASSES[decl.prop];
+  debug('prop = ', decl.prop);
+  debug('value = ', decl.value);
   // remove !important from values
   const val = decl.value.replace(' !important', '');
   let output = '';
@@ -51,7 +54,7 @@ function getTailwindUtils(decl) {
       if (prop) {
         output = prop[val] || '';
       } else {
-        console.error('Unknown prop: ', decl.prop);
+        debug('Unknown prop: ', decl.prop);
       }
   }
 

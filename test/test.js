@@ -474,4 +474,31 @@ describe('Tailwind utils', () => {
     const output = getTailwindUtils(decl);
     assert.equal(output, 'bg-blue-700');
   });
+
+  it('should return nearest  value for background', () => {
+    const decl = { prop: 'background', value: '#000000' };
+    const output = getTailwindUtils(decl);
+    assert.equal(output, 'bg-black');
+  });
+
+  it('should return tailwind value for background currentColor', () => {
+    const decl = { prop: 'background', value: 'currentColor' };
+    const output = getTailwindUtils(decl);
+    assert.equal(output, 'bg-current');
+  });
+
+  it('should return tailwind value for background transparent', () => {
+    const decl = { prop: 'background', value: 'transparent' };
+    const output = getTailwindUtils(decl);
+    assert.equal(output, 'bg-transparent');
+  });
+
+  it('should return empty value for background url', () => {
+    const decl = {
+      prop: 'background',
+      value: 'url(../assets/images/teaching-tomster.png)',
+    };
+    const output = getTailwindUtils(decl);
+    assert.equal(output, ' ');
+  });
 });

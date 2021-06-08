@@ -1034,6 +1034,20 @@ const TAILWIND_CLASSES = {
     0.95: 'border-opacity-95',
     1: 'border-opacity-100',
   },
+
+  background: {
+    none: ' ',
+    transparent: 'bg-transparent',
+    currentColor: 'bg-current',
+    '#fff': 'bg-white',
+    '#ffffff': 'bg-white',
+    '#FFF': 'bg-white',
+    '#FFFFFF': 'bg-white',
+    white: 'bg-white',
+    '#000': 'bg-black',
+    '#000000': 'bg-black',
+    black: 'bg-black',
+  },
 };
 
 module.exports = TAILWIND_CLASSES;

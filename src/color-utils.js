@@ -3,6 +3,7 @@
 const chroma = require('chroma-js');
 const colors = require('tailwindcss/colors');
 
+const TAILWIND_CLASSES = require('./constants');
 // https://gist.github.com/ryancat/9972419b2a78f329ce3aebb7f1a09152
 
 /**
@@ -32,15 +33,7 @@ const defaultColors = [
   'coolGray',
 ];
 
-function getColorUtils(decl) {
-  if (decl.value === 'currentColor' && decl.prop === 'color')
-    return 'text-current';
-  if (decl.value === 'currentColor' && decl.prop === 'background-color')
-    return 'bg-current';
-  if (decl.value === 'transparent' && decl.prop === 'color')
-    return 'text-transparent';
-  if (decl.value === 'transparent' && decl.prop === 'background-color')
-    return 'bg-transparent';
+function getProximateColor(decl) {
   const twColors = Object.keys(colors)
     .filter((c) => defaultColors.includes(c))
     .map((c) => {
@@ -71,12 +64,22 @@ function getColorUtils(decl) {
         }
       }
       _val = _val.replace(' !important', '');
+
       const diff = deltaRgb(chroma(_val).rgb(), chroma(c.hex).rgb());
       return { ...c, diff };
     })
     .sort((a, b) => a.diff - b.diff);
 
   return sorted[0][decl.prop];
+}
+
+function getColorUtils(decl) {
+  if (decl.value.includes('url')) return ' ';
+  const hash = TAILWIND_CLASSES[decl.prop];
+
+  return hash
+    ? hash[decl.value] || getProximateColor(decl)
+    : getProximateColor(decl);
 }
 
 module.exports = getColorUtils;
