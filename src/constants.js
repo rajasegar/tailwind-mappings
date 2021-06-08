@@ -1036,7 +1036,8 @@ const TAILWIND_CLASSES = {
   },
 
   background: {
-    none: ' ',
+    none: 'bg-none',
+    '0 0': 'bg-none',
     transparent: 'bg-transparent',
     currentColor: 'bg-current',
     '#fff': 'bg-white',

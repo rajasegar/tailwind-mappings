@@ -493,6 +493,18 @@ describe('Tailwind utils', () => {
     assert.equal(output, 'bg-transparent');
   });
 
+  it('should return tailwind value for background 0 0', () => {
+    const decl = { prop: 'background', value: '0 0' };
+    const output = getTailwindUtils(decl);
+    assert.equal(output, 'bg-none');
+  });
+
+  it('should return tailwind value for background none', () => {
+    const decl = { prop: 'background', value: 'none' };
+    const output = getTailwindUtils(decl);
+    assert.equal(output, 'bg-none');
+  });
+
   it('should return empty value for background url', () => {
     const decl = {
       prop: 'background',
