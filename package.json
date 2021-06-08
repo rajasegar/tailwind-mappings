@@ -1,6 +1,6 @@
 {
   "name": "tailwind-mappings",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "CSS Property values to Tailwind utilities mapping data",
   "main": "index.js",
   "scripts": {
